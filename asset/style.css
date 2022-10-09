@@ -32,6 +32,8 @@
 }
 .slideImg {
   width: 100%;
+  object-fit: cover;
+  transition: 1s ease;
 }
 .slide-caption {
   width: 100%;
@@ -76,10 +78,36 @@
   height: 20px;
   border-radius: 50%;
   background-color: #bbbbbb;
-  cursor:pointer;
+  cursor: pointer;
   transition: 0.5s ease-in-out;
 }
 
+.active-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #5fcd82;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+}
 .dot:hover {
   background-color: rgb(104, 100, 100);
+}
+
+/* ANIMATION */
+
+.fade {
+  animation-name: fade;
+  animation-duration: 4s;
+}
+
+/*Define the custom animation*/
+
+@keyframes fade {
+  from {
+    opacity: .4;
+  }
+  to {
+    opacity: 1;
+  }
 }

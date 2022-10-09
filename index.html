@@ -9,20 +9,81 @@
   </head>
   <body>
     <div class="main-container">
-      <div class="slider-container">
-        <div class="slide">
-          <div class="numbertext">1 / 3</div>
-          <img src="./asset/img/1.jpg" class="slideImg" />
-          <div class="slide-caption">Caption 1</div>
+      <div id="slider-container" class="slider-container">
+        <div id="slide" class="slide">
+          <div id="numbertext" class="numbertext">1 / 3</div>
+          <img id="slideImg" src="./asset/img/1.jpg" class="slideImg" />
+          <div id="slide-caption" class="slide-caption">Caption 1</div>
         </div>
-        <a href="#" class="previous">&#10094;</a>
-        <a href="#" class="next">&#10095;</a>
-        <div class="sliderBtns">
+        <a href="#" class="previous" onclick="move('L')">&#10094;</a>
+        <a href="#" class="next" onclick="move('R')">&#10095;</a>
+        <div id="sliderBtns" class="sliderBtns">
+          <div class="dot"></div>
           <div class="dot"></div>
           <div class="dot"></div>
           <div class="dot"></div>
         </div>
       </div>
     </div>
+    <script>
+      let slideIndex = 0;
+      let gallery = [
+        "./asset/img/1.jpg",
+        "./asset/img/2.jpg",
+        "./asset/img/3.jpg",
+        "./asset/img/4.jpg",
+      ];
+      //The slider image
+      let sliderImage = document.getElementById("slideImg");
+      //The slider image
+      let sliderContainer = document.getElementById("slide");
+
+      let nbSlides = gallery.length - 1;
+      //Number of dots
+      let total = document.getElementById("sliderBtns").children.length;
+      //By default the first dot is selected
+      document.getElementById("sliderBtns").children[slideIndex].className =
+        "active-dot";
+      dots();
+      document.getElementById("numbertext").innerHTML = "1 / " + total;
+
+      //--- Handle the selected dot -----------------
+      function dots() {
+        //Dot position
+        let pos = 0;
+        for (let dot of document.getElementById("sliderBtns").children) {
+          //Change the color property to green for the related child
+          if (pos === slideIndex) {
+            document.getElementById("sliderBtns").children[pos].className =
+              "active-dot";
+          } else {
+            document.getElementById("sliderBtns").children[pos].className =
+              "dot";
+          }
+          pos++;
+        }
+      }
+      //Handle moves
+      function move(direction) {
+        //sliderContainer.style.display="none";
+        if (direction === "L") {
+          slideIndex === 0 ? (slideIndex = nbSlides) : slideIndex--;
+        } else {
+          slideIndex < nbSlides ? slideIndex++ : (slideIndex = 0);
+        }
+        // console.log(direction, "SLIDE " + slideIndex);
+        sliderContainer.className = "slide fade";
+        sliderImage.src = gallery[slideIndex];
+        //sliderContainer.style.display="block";
+        document.getElementById("slide-caption").innerHTML =
+          "Caption " + (slideIndex + 1);
+        document.getElementById("numbertext").innerHTML =
+          slideIndex + 1 + " / " + (nbSlides + 1);
+        //Select the dot
+        dots();
+        //Set slide container to default class
+        //sliderContainer.className="slider-container";
+      }
+    </script>
   </body>
 </html>
